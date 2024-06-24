@@ -1,0 +1,158 @@
+.section-to-do-list .header {
+    position: relative;
+}
+
+.section-to-do-list .header:before {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100vw;
+    top: 0;
+    height: 150px;
+    -webkit-transform-origin: 0;
+    transform-origin: 0;
+    background: #000;
+    -webkit-transform: skewY(-12deg);
+    transform: skewY(-7deg);
+    z-index: -1;
+}
+
+.section-to-do-list h2 {
+    text-decoration: underline;
+    text-decoration-color: #4AC959;
+}
+
+.todo {
+    box-shadow: 0px 4px 12px 0px #42424233;
+}
+
+.todo:first-child {
+    border-top: 12px solid #E88D39;
+    margin-bottom: 30px;
+}
+
+.todo:last-child {
+    border-top: 12px solid #4AC959;
+}
+
+.todo:first-child input[type="checkbox"] {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    width: 20px;
+    height: 20px;
+    border: 2px solid;
+    border-color: #E88D39;
+    border-radius: 50%;
+    outline: none;
+}
+
+.todo:first-child .title p span {
+    display: block;
+}
+
+.todo:last-child .title p span {
+    font-weight: bold;
+    display: block;
+}
+
+.todo:first-child .erase-complete {
+    display: none;
+}
+
+.todo:last-child .erase-incomplete {
+    display: none;
+}
+
+.todo:last-child input[type="checkbox"] {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    width: 20px;
+    height: 20px;
+    border: 2px solid;
+    border-color: #4AC959;
+    border-radius: 50%;
+    outline: none;
+    background: #4AC959;
+    position: relative;
+    cursor: pointer;
+}
+
+.todo:last-child input[type="checkbox"]:checked::before {
+    content: '';
+    position: absolute;
+    top: 4px;
+    left: 6px;
+    width: 4px;
+    height: 8px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+.task-item span {
+    overflow-wrap: break-word;
+}
+
+.action button,
+.edit-task button {
+    color: #999;
+}
+
+@media (min-width: 768px) {
+    .todo:first-child {
+        margin-bottom: 0;
+    }
+
+    .section-to-do-list .header:before {
+        top: 25px;
+    }
+}
+
+@media (min-width: 1024px) {
+    .task-lists {
+        position: relative;
+    }
+
+    .section-to-do-list::after {
+        content: '';
+        position: absolute;
+        top: 20%;
+        left: 0%;
+        width: 100%;
+        height: 570px;
+        z-index: -1;
+        background-image: url('../../public/grafismos-lateral-esquerda.svg');
+        background-repeat: no-repeat;
+    }
+
+    .section-to-do-list .header:before {
+        display: none;
+    }
+
+    .section-to-do-list:before {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100vw;
+        top: 15px;
+        height: 300px;
+        -webkit-transform-origin: 0;
+        transform-origin: 0;
+        background: #000;
+        -webkit-transform: skewY(-3deg);
+        transform: skewY(-3deg);
+        z-index: -1;
+    }
+
+    .todo {
+        max-width: 380px;
+    }
+
+    .task-lists {
+        max-width: 800px;
+    }
+}

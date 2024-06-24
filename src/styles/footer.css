@@ -1,0 +1,13 @@
+.footer {
+    background-image: url('../../public/bg-footer.svg');
+    background-size: cover;
+    background-repeat: no-repeat; 
+    background-position: center; 
+}
+
+.stripe-green {
+    background-image: url('../../public/stripe-green.svg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center; 
+}

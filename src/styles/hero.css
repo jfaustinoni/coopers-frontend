@@ -1,0 +1,51 @@
+.btn-hero {
+    border-radius: 0.625rem;
+}
+
+.div-opacity {
+    background: rgb(0 47 6 / 40%);
+}
+
+@media (min-width: 768px) {
+    .section-hero {
+        position: relative;
+    }
+
+    .image-hero {
+        position: relative;
+    }
+
+    .image-hero::before {
+        content: '';
+        position: absolute;
+        top: -23%;
+        left: 62%;
+        transform: translateX(-50%);
+        width: 50vw;
+        height: 140%;
+        background-image: url('../../public/icon-hero-coopers.svg');
+        background-repeat: no-repeat;
+        background-size: cover;
+        z-index: -1;
+    }
+}
+
+@media (min-width: 1024px) {
+    .section-carousel::before {
+        height: 520px;
+        width: 75vw;
+        border-radius: 12px;
+    }
+
+    .image-hero img {
+        max-height: 481px;
+    }
+
+    .hero-arrow {
+        top: 85%;
+    }
+
+    .image-hero::before {
+        left: 24%;
+    }
+}

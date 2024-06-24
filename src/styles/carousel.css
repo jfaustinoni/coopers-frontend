@@ -1,0 +1,68 @@
+.section-carousel {
+    position: relative;
+    background-color: #fff;
+}
+
+.section-carousel::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 95vw;
+    height: 300px;
+    background-color: #4AC959;
+    border-radius: 4px;
+}
+
+.slick-dots li button:before {
+    font-size: 29px !important;
+    color: #C4C4C4 !important;
+    opacity: 1 !important;
+}
+
+.slick-dots li.slick-active button:before {
+    color: #4AC959 !important;
+}
+
+.card {
+    box-shadow: 8px 8px 24px 0px #0C29D029;
+    max-width: 280px;
+    background-color: #fff;
+}
+
+.card-body label {
+    border-color: #9499B3;
+    color: #9499B3;
+}
+
+.card-body p {
+    color: #312F4F;
+    min-height: 110px;
+}
+
+.slick-slide>div {
+    min-height: 430px;
+    overflow: hidden;
+}
+
+.card-header::before {
+    content: '';
+    position: absolute;
+    top: 129px;
+    left: 56vw;
+    width: 100%;
+    height: 56px;
+    background-image: url('../../public/icone-coopers.svg');
+    background-repeat: no-repeat;
+}
+
+
+@media (min-width: 1024px) {
+    .card {
+        max-width: 350px;
+    }
+
+    .slick-slide>div {
+        min-height: 490px;
+    }
+}
