@@ -3,23 +3,17 @@ import Logo from "../../public/Logo.svg";
 import LogoutButton from "../components/Login/LogoutButton";
 import AuthModal from "../components/Login/AuthModal";
 
+
 interface HeaderProps {
   isLoggedIn: boolean;
-  handleOpenModal: () => void;
-  handleLogout: () => void;
   isModalOpen: boolean;
   handleCloseModal: () => void;
+  handleOpenModal: () => void;
+  handleLogout: () => void;
   handleLogin: () => void;
 }
 
-export function Header({
-  isLoggedIn,
-  handleOpenModal,
-  handleLogout,
-  isModalOpen,
-  handleCloseModal,
-  handleLogin,
-}: HeaderProps) {
+export const Header: React.FC<HeaderProps> = ({ isLoggedIn, isModalOpen, handleCloseModal, handleOpenModal, handleLogout, handleLogin }) => {
   return (
     <header className="relative w-full h-12 flex items-center sm:z-20 lg:container lg:mx-auto lg:py-11">
       <div className="w-full max-w-screen-xl mx-auto px-3 flex items-center justify-between">

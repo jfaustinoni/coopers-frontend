@@ -1,8 +1,11 @@
-import { useState } from 'react';
-import AuthModal from '../components/Login/AuthModal';
+import { ReactNode, useState } from 'react';
 import '../styles/globals.css';
 
-const Layout = ({ children }) => {
+interface LayoutProps {
+  children: ReactNode;
+}
+
+const Layout = ({ children }: LayoutProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const openModal = () => {

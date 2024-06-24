@@ -2,7 +2,30 @@ import React, { useState } from 'react';
 import { Draggable, Droppable } from 'react-beautiful-dnd';
 import TaskForm from './TaskForm';
 
-const TasksList = ({
+interface Task {
+    _id: string;
+    description: string;
+    completed: boolean;
+}
+
+interface TasksListProps {
+    isLoggedIn: boolean;
+    tasks: Task[]; 
+    onTasksUpdate: (updatedTasks: Task[]) => void;
+    onDeleteTask: (taskId: string) => void;
+    onUpdateTask: (taskId: string, updates: Partial<Task>) => Promise<void>;
+    onCompleteTask: (taskId: string, isCompleted: boolean) => Promise<void>;
+    onDeleteAllCompleted: () => Promise<void>;
+    onDeleteAllIncompleted: () => Promise<void>;
+    onTaskCreated: (newTaskData: Task) => Promise<void>;
+    showTaskForm: boolean;
+    title: string;
+    description: string;
+    droppableId: string;
+}
+
+
+const TasksList: React.FC<TasksListProps> = ({
     isLoggedIn,
     tasks,
     onTasksUpdate,
@@ -17,15 +40,15 @@ const TasksList = ({
     description,
     droppableId
 }) => {
-    const [editingTaskId, setEditingTaskId] = useState(null);
+    const [editingTaskId, setEditingTaskId] = useState<string | null>(null);
     const [editedDescription, setEditedDescription] = useState('');
 
-    const handleEditClick = (taskId, description) => {
+    const handleEditClick = (taskId: string, description: string) => {
         setEditingTaskId(taskId);
         setEditedDescription(description);
     };
 
-    const handleSaveClick = async (taskId) => {
+    const handleSaveClick = async (taskId: string) => {
         await onUpdateTask(taskId, { description: editedDescription });
         setEditingTaskId(null);
         setEditedDescription('');
@@ -36,20 +59,20 @@ const TasksList = ({
         setEditedDescription('');
     };
 
-    const handleCheckboxChange = async (taskId) => {
+    const handleCheckboxChange = async (taskId: string) => {
         const updatedTasks = tasks.map(task =>
             task._id === taskId ? { ...task, completed: !task.completed } : task
         );
         onTasksUpdate(updatedTasks);
 
-        await onUpdateTask(taskId, { completed: !tasks.find(task => task._id === taskId).completed });
+        await onUpdateTask(taskId, { completed: !tasks.find(task => task._id === taskId)?.completed });
     };
 
-    const handleDeleteTask = async (taskId) => {
+    const handleDeleteTask = async (taskId: string) => {
         await onDeleteTask(taskId);
     };
 
-    const handleDeleteAllClick = async (type) => {
+    const handleDeleteAllClick = async (type: 'completed' | 'incompleted') => {
         if (type === 'completed') {
             await onDeleteAllCompleted();
         } else {
@@ -57,11 +80,11 @@ const TasksList = ({
         }
     };
 
-    const handleTaskCreated = async (newTaskData) => {
+    const handleTaskCreated = async (newTaskData: any) => {
         await onTaskCreated(newTaskData);
     };
 
-    const handleDragEnd = async (result) => {
+    const handleDragEnd = async (result: any) => {
         const { source, destination, draggableId } = result;
 
         if (!destination || (source.droppableId === destination.droppableId && source.index === destination.index)) {

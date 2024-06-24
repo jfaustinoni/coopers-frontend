@@ -16,7 +16,7 @@ const AuthModal: React.FC<AuthModalProps> = ({ open, onClose, onLogin }) => {
         name: '',
         email: '',
         password: '',
-        confirmPassword: ''
+        confirmpassword: ''
     });
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -101,8 +101,8 @@ const AuthModal: React.FC<AuthModalProps> = ({ open, onClose, onLogin }) => {
                         <label className='text-black font-bold font-montserrat pb-1 mt-4'>Confirm password:</label>
                         <input
                             type="password"
-                            name="confirmPassword"
-                            value={formData.confirmPassword}
+                            name="confirmpassword"
+                            value={formData.confirmpassword}
                             onChange={handleChange}
                             className="rounded-lg border p-1.5"
                         />
@@ -150,7 +150,7 @@ const AuthModal: React.FC<AuthModalProps> = ({ open, onClose, onLogin }) => {
                                 Login
                             </button>
                             <p className="mt-4 text-center">
-                                Don't have an account? {' '}
+                                Don&apos;t have an account? {' '}
                                 <button
                                     onClick={toggleMode}
                                     className="text-blue-500 underline focus:outline-none"

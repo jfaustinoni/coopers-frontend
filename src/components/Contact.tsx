@@ -4,7 +4,20 @@ import ContactImage from '../../public/contact.png'
 import ContactIcon from '../../public/icon-email.svg'
 import InputMask from 'react-input-mask';
 
-const Contact = ({ formData, handleInputChange, handleSubmit }) => {
+interface FormData {
+    name: string;
+    email: string;
+    telephone: string;
+    message: string;
+}
+
+interface ContactProps {
+    formData: FormData;
+    handleInputChange: (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
+    handleSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
+}
+
+const Contact: React.FC<ContactProps> = ({ formData, handleInputChange, handleSubmit }) => {
     return (
         <section className='section-contact m-3.5 lg:container lg:mx-auto lg:p-28 lg:flex lg:flex-col lg:items-center'>
             <header className='flex flex-col items-center relative top-8 lg:w-full'>

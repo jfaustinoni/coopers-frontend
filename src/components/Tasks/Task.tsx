@@ -3,8 +3,36 @@ import { getTasks, createTask, deleteTask, updateTask, completeTask, deleteAllCo
 import TasksList from './TasksList';
 import { DragDropContext } from 'react-beautiful-dnd';
 
-const Task = ({ isLoggedIn }) => {
-    const [localTasks, setLocalTasks] = useState([]);
+interface TaskData {
+    _id: string;
+    description: string;
+    completed: boolean;
+}
+
+interface TaskProps {
+    isLoggedIn: boolean;
+    tasks: TaskData[];
+    onTasksUpdate: (tasksData: React.SetStateAction<TaskData[]>) => void;
+    onDeleteTask: (taskId: string) => Promise<void>;
+    onUpdateTask: (taskId: string, updatedTaskData: Partial<TaskData>) => Promise<void>;
+    onCompleteTask: (taskId: string, isCompleted: boolean) => Promise<void>;
+    onDeleteAllCompleteTasks: () => Promise<void>;
+    onDeleteAllIncompleteTasks: () => Promise<void>;
+    onTaskCreated: (newTaskData: TaskData) => Promise<void>;
+}
+
+const Task: React.FC<TaskProps> = ({ 
+    isLoggedIn, 
+    tasks, 
+    onTasksUpdate, 
+    onDeleteTask, 
+    onUpdateTask, 
+    onCompleteTask, 
+    onDeleteAllCompleteTasks, 
+    onDeleteAllIncompleteTasks, 
+    onTaskCreated 
+}) => {
+    const [localTasks, setLocalTasks] = useState<TaskData[]>([]);
     const [tasksFetched, setTasksFetched] = useState(false);
 
     const fetchTasks = async () => {
@@ -24,11 +52,11 @@ const Task = ({ isLoggedIn }) => {
         }
     }, [isLoggedIn, tasksFetched]);
 
-    const handleTasksUpdate = (updatedTasks) => {
+    const handleTasksUpdate = (updatedTasks: React.SetStateAction<TaskData[]>) => {
         setLocalTasks(updatedTasks);
     };
 
-    const handleDeleteTask = async (taskId) => {
+    const handleDeleteTask = async (taskId: string) => {
         try {
             const response = await deleteTask(taskId);
             if (response.success) {
@@ -42,7 +70,7 @@ const Task = ({ isLoggedIn }) => {
         }
     };
 
-    const handleUpdateTask = async (taskId, updatedTaskData) => {
+    const handleUpdateTask = async (taskId: string, updatedTaskData: any) => {
         try {
             const response = await updateTask(taskId, updatedTaskData);
             if (response.success) {
@@ -58,7 +86,7 @@ const Task = ({ isLoggedIn }) => {
         }
     };
 
-    const handleCompleteTask = async (taskId, isCompleted) => {
+    const handleCompleteTask = async (taskId: string, isCompleted: boolean) => {
         try {
             const response = await completeTask(taskId, isCompleted);
             if (response.success) {
@@ -74,7 +102,7 @@ const Task = ({ isLoggedIn }) => {
         }
     };
 
-    const handleTaskCreated = async (newTaskData) => {
+    const handleTaskCreated = async (newTaskData: any) => {
         try {
             const response = await createTask(newTaskData);
             if (response.success) {
@@ -119,7 +147,7 @@ const Task = ({ isLoggedIn }) => {
         }
     };
 
-    const handleDragEnd = async (result) => {
+    const handleDragEnd = async (result: { source: any; destination: any; }) => {
         const { source, destination } = result;
 
         if (!destination) {
@@ -150,35 +178,36 @@ const Task = ({ isLoggedIn }) => {
                 </div>
                 <div className='task-lists flex flex-col mt-20 mx-8 sm:flex-row sm:justify-around sm:align-center lg:mx-auto lg:mt-32'>
                     <DragDropContext onDragEnd={handleDragEnd}>
-                        <TasksList
-                            isLoggedIn={isLoggedIn}
-                            tasks={localTasks.filter(task => !task.completed)}
-                            onTasksUpdate={handleTasksUpdate}
-                            onDeleteTask={handleDeleteTask}
-                            onUpdateTask={handleUpdateTask}
-                            onCompleteTask={handleCompleteTask}
-                            onDeleteAllCompleted={handleDeleteAllCompleteTasks}
-                            onDeleteAllIncompleted={handleDeleteAllIncompleteTasks}
-                            onTaskCreated={handleTaskCreated}
-                            showTaskForm={true}
-                            title="To-do"
-                            description="Take a breath. <span>Start doing.</span>"
-                            droppableId="incomplete-tasks"
-                        />
-                        <TasksList
-                            isLoggedIn={isLoggedIn}
-                            tasks={localTasks.filter(task => task.completed)}
-                            onTasksUpdate={handleTasksUpdate}
-                            onDeleteTask={handleDeleteTask}
-                            onUpdateTask={handleUpdateTask}
-                            onCompleteTask={handleCompleteTask}
-                            onDeleteAllCompleted={handleDeleteAllCompleteTasks}
-                            onDeleteAllIncompleted={handleDeleteAllIncompleteTasks}
-                            showTaskForm={false}
-                            title="Done"
-                            description={`Congratulations! <span>You have done ${localTasks.filter(task => task.completed).length} tasks</span>`}
-                            droppableId="completed-tasks"
-                        />
+                    <TasksList
+                        isLoggedIn={isLoggedIn}
+                        tasks={localTasks.filter(task => !task.completed)}
+                        onTasksUpdate={handleTasksUpdate}
+                        onDeleteTask={handleDeleteTask}
+                        onUpdateTask={handleUpdateTask}
+                        onCompleteTask={handleCompleteTask}
+                        onDeleteAllCompleted={handleDeleteAllCompleteTasks}
+                        onDeleteAllIncompleted={handleDeleteAllIncompleteTasks}
+                        onTaskCreated={handleTaskCreated}
+                        showTaskForm={true}
+                        title="To-do"
+                        description="Take a breath. <span>Start doing.</span>"
+                        droppableId="incomplete-tasks"
+                    />
+                    <TasksList
+                        isLoggedIn={isLoggedIn}
+                        tasks={localTasks.filter(task => task.completed)}
+                        onTasksUpdate={handleTasksUpdate}
+                        onDeleteTask={handleDeleteTask}
+                        onUpdateTask={handleUpdateTask}
+                        onCompleteTask={handleCompleteTask}
+                        onDeleteAllCompleted={handleDeleteAllCompleteTasks}
+                        onDeleteAllIncompleted={handleDeleteAllIncompleteTasks}
+                        onTaskCreated={handleTaskCreated}
+                        showTaskForm={false}
+                        title="Done"
+                        description={`Congratulations! <span>You have done ${localTasks.filter(task => task.completed).length} tasks</span>`}
+                        droppableId="completed-tasks"
+                    />
                     </DragDropContext>
                 </div>
             </div>
