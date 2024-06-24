@@ -1,9 +1,10 @@
 import axios from 'axios';
 
+const baseUrl = 'https://coopers-api.onrender.com';
 
 export const deleteAllCompleteTasks = async () => {
   try {
-    const response = await axios.delete(`http://localhost:3000/tasks/complete`, {
+    const response = await axios.delete(`${baseUrl}/tasks/complete`, {
       headers: {
         'Authorization': `Bearer ${localStorage.getItem('token')}`
       }
@@ -17,7 +18,7 @@ export const deleteAllCompleteTasks = async () => {
 
 export const deleteAllIncompleteTasks = async () => {
   try {
-    const response = await axios.delete(`http://localhost:3000/tasks/incomplete`, {
+    const response = await axios.delete(`${baseUrl}/tasks/incomplete`, {
       headers: {
         'Authorization': `Bearer ${localStorage.getItem('token')}`
       }
@@ -30,7 +31,7 @@ export const deleteAllIncompleteTasks = async () => {
 };
 
 export const registerUser = async ({ name, email, password, confirmpassword }) => {
-  const response = await axios.post('http://localhost:3000/auth/register', {
+  const response = await axios.post(`${baseUrl}/auth/register`, {
     name,
     email,
     password,
@@ -40,7 +41,7 @@ export const registerUser = async ({ name, email, password, confirmpassword }) =
 };
 
 export const loginUser = async ({ email, password }) => {
-  const response = await axios.post('http://localhost:3000/auth/login', {
+  const response = await axios.post(`${baseUrl}/auth/login`, {
     email,
     password,
   });
@@ -49,7 +50,7 @@ export const loginUser = async ({ email, password }) => {
 
 export const getTasks = async () => {
   try {
-    const response = await axios.get('http://localhost:3000/tasks', {
+    const response = await axios.get(`${baseUrl}/tasks`, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`
       }
@@ -65,7 +66,7 @@ export const createTask = async (taskData) => {
   try {
     const token = localStorage.getItem('token');
 
-    const response = await axios.post('http://localhost:3000/tasks', taskData, {
+    const response = await axios.post(`${baseUrl}/tasks`, taskData, {
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`,
@@ -83,7 +84,7 @@ export const deleteTask = async (taskId) => {
   try {
     const token = localStorage.getItem('token');
 
-    await axios.delete(`http://localhost:3000/tasks/${taskId}`, {
+    await axios.delete(`${baseUrl}/tasks/${taskId}`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -100,7 +101,7 @@ export const updateTask = async (taskId, taskData) => {
   try {
     const token = localStorage.getItem('token');
 
-    const response = await axios.patch(`http://localhost:3000/tasks/${taskId}`, taskData, {
+    const response = await axios.patch(`${baseUrl}/tasks/${taskId}`, taskData, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -118,7 +119,7 @@ export const completeTask = async (taskId, isCompleted) => {
     const token = localStorage.getItem('token');
 
     const response = await axios.patch(
-      `http://localhost:3000/tasks/${taskId}`,
+      `${baseUrl}/tasks/${taskId}`,
       { completed: isCompleted },
       {
         headers: {
@@ -136,7 +137,7 @@ export const completeTask = async (taskId, isCompleted) => {
 
 export const sendEmail = async (formData) => {
   try {
-    const response = await axios.post(`http://localhost:3000/email`, formData);
+    const response = await axios.post(`${baseUrl}/email`, formData);
     return response.data;
   } catch (error) {
     console.error('Erro ao enviar e-mail:', error);
