@@ -179,35 +179,23 @@ const Home = () => {
                 handleLogin={handleLogin}
             />
             <Hero />
-            <div className="py-4 px-4 mx-auto max-w-screen-xl lg:py-8 lg:px-6">
-                {isLoggedIn ? (
-                    <div className="tasks-container">
-                        <div className="section">
-                            <Task
-                                isLoggedIn={isLoggedIn}
-                                tasks={tasks}
-                                onTasksUpdate={handleTasksUpdate}
-                                onDeleteTask={handleDeleteTask}
-                                onUpdateTask={handleUpdateTask}
-                                onCompleteTask={handleCompleteTask}
-                                onDeleteAllCompleteTasks={handleDeleteAllCompleteTasks}
-                                onDeleteAllIncompleteTasks={handleDeleteAllIncompleteTasks}
-                                onTaskCreated={handleTaskCreated}
-                            />
-                        </div>
-                    </div>
-                ) : (
-                    <div>
-                        <h2>Faça login para ver suas tarefas</h2>
-                    </div>
-                )}
-                <CarouselSection />
-                <Contact
-                    handleInputChange={handleInputChange}
-                    handleSubmit={handleSubmit}
-                    formData={formData}
-                />
-            </div>
+            <Task
+                isLoggedIn={isLoggedIn}
+                tasks={tasks}
+                onTasksUpdate={handleTasksUpdate}
+                onDeleteTask={handleDeleteTask}
+                onUpdateTask={handleUpdateTask}
+                onCompleteTask={handleCompleteTask}
+                onDeleteAllCompleteTasks={handleDeleteAllCompleteTasks}
+                onDeleteAllIncompleteTasks={handleDeleteAllIncompleteTasks}
+                onTaskCreated={handleTaskCreated}
+            />
+            <CarouselSection />
+            <Contact
+                handleInputChange={handleInputChange}
+                handleSubmit={handleSubmit}
+                formData={formData}
+            />
             <Footer />
         </>
     );
